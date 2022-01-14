@@ -12,13 +12,17 @@ describe("OCR.space-API", () => {
 
     beforeEach(() => {});
 
-    afterEach(() => {});
+    afterEach(() => {
+      imgLicensePlatePath = "";
+      licensePlateNumberExpect = "";
+      licensePlateNumberRecognaized = "";
+    });
 
     const exec = async () => {
       try {
         return await parse_image(imgLicensePlatePath);
       } catch (ex) {
-        console.error(ex.message);
+        //console.error(ex.message);
         return ex.message;
       }
     };
@@ -43,12 +47,38 @@ describe("OCR.space-API", () => {
       expect(licensePlateNumberRecognaized).toEqual(licensePlateNumberExpect);
     });
 
-    // it("should return 403 status code not found photo path", async () => {
-    //   imgLicensePlatePath = "";
+    it("should throw error for falsy,undefined photo path", async () => {
+      imgLicensePlatePath = undefined;
+
+      res = await exec();
+
+      expect(res).toEqual("Falsy path image to OCR - API parse image function");
+    });
+
+    it("should throw error for falsy,null photo path", async () => {
+      imgLicensePlatePath = null;
+
+      res = await exec();
+
+      expect(res).toEqual("Falsy path image to OCR - API parse image function");
+    });
+
+    it("should throw error for falsy,null string photo path", async () => {
+      imgLicensePlatePath = "";
+
+      res = await exec();
+
+      expect(res).toEqual("Falsy path image to OCR - API parse image function");
+    });
+
+    // it("should throw error when the path is not found", async () => {
+    //   imgLicensePlatePath = "notValidPath";
 
     //   res = await exec();
 
-    //   expect(res).toEqual("The path is falsy");
+    //   expect(res).toEqual(
+    //     "Failes on recognzied license plate image or the path image is not found"
+    //   );
     // });
   });
 });

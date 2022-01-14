@@ -5,8 +5,12 @@ function cleanRes(ocr_resp) {
 }
 
 async function parse_image(pathToVehicleLicensePlateImg) {
+  if (!pathToVehicleLicensePlateImg)
+    throw new Error("Falsy path image to OCR - API parse image function");
+
   let res;
   let licensePlate;
+
   try {
     res = await ocrSpace(pathToVehicleLicensePlateImg, {
       apiKey: "912a29a6d088957"
@@ -14,7 +18,8 @@ async function parse_image(pathToVehicleLicensePlateImg) {
   } catch (error) {
     return error.message;
   }
-  if (res.status !== 500 && res.status !== 403) {
+
+  if (res) {
     if (res.hasOwnProperty("ParsedResults")) {
       if (res.ParsedResults[0].hasOwnProperty("ParsedText")) {
         licensePlate = res.ParsedResults[0].ParsedText;
@@ -22,8 +27,9 @@ async function parse_image(pathToVehicleLicensePlateImg) {
       }
     }
   }
-
-  throw new Error("Failes on recognzied license plate image");
+  throw new Error(
+    "Failes on recognzied license plate image or the path image is not found"
+  );
 }
 
 module.exports = parse_image;

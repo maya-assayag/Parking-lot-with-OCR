@@ -44,12 +44,4 @@ async function can_enter_parking_lot(pathToVehicleLicensePlateImg) {
     : { accept: true, reason: "regular" };
 }
 
-// console.log("m_le", can_enter_parking_lot("'fkj57849 5 5 -3556.68"));
-// console.log("pl", can_enter_parking_lot("'fkj57849  5 -35627?jg"));
-// console.log("pl", can_enter_parking_lot("'fkj57849  5 -35625?jg"));
-// console.log("VIP", can_enter_parking_lot("'fk301239jg"));
-// console.log("error", can_enter_parking_lot("njdfgnkdfgnkf"));
-// console.log("error", can_enter_parking_lot(""));
-// console.log("regular", can_enter_parking_lot("12345679"));
-
 module.exports = can_enter_parking_lot;
