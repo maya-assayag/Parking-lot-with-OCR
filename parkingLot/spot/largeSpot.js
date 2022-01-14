@@ -1,8 +1,10 @@
-import Spot from "./spot.js";
+const { Spot } = require("./spot");
 
-export default class LargeSpot extends Spot {
+class LargeSpot extends Spot {
   constructor(isHandicap) {
     super(isHandicap);
     this.size = "Large";
   }
 }
+
+module.exports = { LargeSpot };

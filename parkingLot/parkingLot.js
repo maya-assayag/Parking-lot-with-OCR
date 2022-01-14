@@ -1,13 +1,13 @@
-import Status from "./status/status.js";
-import LargeSpot from "./spot/largeSpot.js";
-import MeduinSpot from "./spot/mediumSpot.js";
-import SmallSpot from "./spot/smallSpot.js";
+const { Status } = require("././status/status");
+const { LargeSpot } = require("././spot/largeSpot");
+const { MediumSpot } = require("././spot/mediumSpot");
+const { SmallSpot } = require("././spot/smallSpot");
 const hasPermissions = require("./policyEntrance");
 
 let _parkingLot;
 let _parkingStatus;
 
-export default class ParkingLot {
+class ParkingLot {
   constructor(regularSpots, handicapSpots) {
     if (!_parkingLot) {
       _parkingLot = new Map();
@@ -25,12 +25,17 @@ export default class ParkingLot {
     return _parkingStatus;
   };
 
-  park = function(vehicle) {
+  park = async function(vehicle) {
     if (_parkingLot.get(vehicle.getId()))
       throw new Error("This car is already park in the parking lot");
 
-    if (!hasPermissions(image).accept)
+    const permissions = await hasPermissions(
+      vehicle.pathToVehicleLicensePlateImg
+    );
+
+    if (!permissions.accept) {
       throw new Error("This vehicle has no parking lot entrance permissions");
+    }
 
     const size = vehicle.getSize();
     const isHundicap = vehicle.getIsHandicap();
@@ -46,7 +51,7 @@ export default class ParkingLot {
     size === "Large"
       ? (spot = new LargeSpot(isHundicap))
       : size === "Meduim"
-      ? (spot = new MeduinSpot(isHundicap))
+      ? (spot = new MediumSpot(isHundicap))
       : (spot = new SmallSpot(isHundicap));
 
     if (availbleSpots > 0) {
@@ -80,3 +85,4 @@ export default class ParkingLot {
     });
   };
 }
+module.exports = { ParkingLot };

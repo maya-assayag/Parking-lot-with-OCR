@@ -1,11 +1,27 @@
-import Vehicle from "./vehicle.js";
+const { Vehicle } = require("./vehicle");
 
-export default class MediumVehicle extends Vehicle {
-  constructor(make, model, color, isHandicapAccessble) {
-    super(make, model, color, isHandicapAccessble);
+class MediumVehicle extends Vehicle {
+  constructor(
+    make,
+    model,
+    color,
+    isHandicapAccessblepermissions,
+    permissions,
+    pathToVehicleLicensePlateImg
+  ) {
+    super(
+      make,
+      model,
+      color,
+      isHandicapAccessblepermissions,
+      permissions,
+      pathToVehicleLicensePlateImg
+    );
     this.size = "Meduim";
   }
   getSize = function() {
     return this.size;
   };
 }
+
+module.exports = { MediumVehicle };

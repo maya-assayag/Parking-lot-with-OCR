@@ -1,5 +1,5 @@
-export default class AvailbleSpotsStatus {
-  constructor(regularSpots = 4, handicapSpots = 1) {
+class AvailbleSpotsStatus {
+  constructor(regularSpots, handicapSpots) {
     this.regularSpotsAvailble = regularSpots;
     this.handicapSpotsAvailble = handicapSpots;
   }
@@ -11,3 +11,4 @@ export default class AvailbleSpotsStatus {
     isHundicap ? ++this.handicapSpotsAvailble : ++this.regularSpotsAvailble;
   };
 }
+module.exports = { AvailbleSpotsStatus };

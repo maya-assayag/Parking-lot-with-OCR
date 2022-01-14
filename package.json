@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./parkingLot/policyEntrance.js"
+    "start": "nodemon ./parkingLot/policyEntrance.js",
+    "test": "jest --watchAll --verbose  --maxWorkers=1"
   },
   "keywords": [],
   "author": "",
@@ -12,5 +13,8 @@
   "dependencies": {
     "nodemon": "^2.0.15",
     "ocr-space-api-wrapper": "^2.1.0"
+  },
+  "devDependencies": {
+    "jest": "^27.4.7"
   }
 }

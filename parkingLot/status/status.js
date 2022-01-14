@@ -1,9 +1,9 @@
-import AvailbleSpotsStatus from "./AvailbleSpotsStatus.js";
+const { AvailbleSpotsStatus } = require("./AvailbleSpotsStatus");
 
 let _parkingStatus;
 
-export default class Status {
-  constructor(regularSpots, handicapSpots) {
+class Status {
+  constructor(regularSpots = 2, handicapSpots = 1) {
     if (!_parkingStatus) {
       _parkingStatus = new Map();
 
@@ -57,3 +57,5 @@ export default class Status {
     });
   };
 }
+
+module.exports = { Status };
