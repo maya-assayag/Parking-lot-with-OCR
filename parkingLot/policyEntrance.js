@@ -1,4 +1,4 @@
-const parse_image = require("../OCR_API");
+const parse_image = require("../api/space_OCR_API");
 
 function hasNoPermissions(licensePlate) {
   return licensePlate === undefined || licensePlate === "" ? true : false;

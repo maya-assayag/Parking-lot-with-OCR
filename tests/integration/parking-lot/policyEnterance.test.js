@@ -1,11 +1,8 @@
 const policyEnterance = require("../../../parkingLot/policyEntrance");
+const { createImagePath } = require("../../../api/utilities/utilities");
 
 describe("Parking lot. Policy enterance", () => {
   let pathToImg = "";
-
-  createImagePath = function(photoNumber) {
-    return "./licensePlatesImages/l" + photoNumber + ".png";
-  };
 
   describe("can_enter_parking_lot", () => {
     beforeEach(() => {});

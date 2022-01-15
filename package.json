@@ -12,9 +12,11 @@
   "license": "ISC",
   "dependencies": {
     "nodemon": "^2.0.15",
-    "ocr-space-api-wrapper": "^2.1.0"
+    "ocr-space-api-wrapper": "^2.1.0",
+    "tesseract.js": "^2.1.5"
   },
   "devDependencies": {
-    "jest": "^27.4.7"
+    "jest": "^27.4.7",
+    "jest-cli": "^27.4.7"
   }
 }

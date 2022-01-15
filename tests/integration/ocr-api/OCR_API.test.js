@@ -1,14 +1,11 @@
-const parse_image = require("../../../OCR_API");
+const parse_image = require("../../../api/space_OCR_API");
+const { createImagePath } = require("../../../api/utilities/utilities");
 
 describe("OCR.space-API", () => {
   describe("parse image to Json function", () => {
     let imgLicensePlatePath = "";
     let licensePlateNumberExpect = "";
     let licensePlateNumberRecognaized = "";
-
-    createImagePath = function(photoNumber) {
-      return "./licensePlatesImages/l" + photoNumber + ".png";
-    };
 
     beforeEach(() => {});
 
