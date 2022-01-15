@@ -1,7 +1,7 @@
 const parse_image = require("../../../api/tesseract_OCR_API");
 const { createImagePath } = require("../../../api/utilities/utilities");
 
-describe("OCR.space-API", () => {
+describe("OCR.tesseract-API", () => {
   describe("parse image to Json function", () => {
     let imgLicensePlatePath = "";
     let licensePlateNumberExpect = "";
