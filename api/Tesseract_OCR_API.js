@@ -6,13 +6,23 @@ const worker = createWorker({
 });
 
 async function parse_image(imgPath) {
+  if (!imgPath)
+    throw new Error(
+      "Falsy path image to tesseract OCR - API parse image function"
+    );
+
   await worker.load();
   await worker.loadLanguage("eng");
   await worker.initialize("eng");
-  const {
-    data: { text }
-  } = await worker.recognize(imgPath);
-  return cleanAPIRes(text);
+
+  try {
+    const {
+      data: { text }
+    } = await worker.recognize(imgPath);
+    return cleanAPIRes(text);
+  } catch (ex) {
+    throw new Error("The path is not valid tesseract OCR - API");
+  }
 
   //await worker.terminate();
 }
