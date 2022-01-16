@@ -72,6 +72,13 @@ class APIStatistics {
     imgCount = imgCounter();
   }
 
+  bestPerformance = async function() {
+    await this.statistics();
+    return recognize.space.success.length > recognize.tesseract.success.length
+      ? "Space"
+      : "Tesseract";
+  };
+
   statistics = async function() {
     let i = 1;
     while (i <= imgCount) {
@@ -103,9 +110,9 @@ class APIStatistics {
             ${recognize.tesseract.failed}`);
   };
 }
+// let bla = new APIStatistics();
 
-let bla = new APIStatistics();
-
-bla.statistics().then(() => {
-  bla.print();
-});
+// bla.statistics().then(() => {
+//   bla.print();
+// });
+module.exports = { APIStatistics };

@@ -2,7 +2,7 @@ const { createWorker } = require("tesseract.js");
 const { cleanAPIRes } = require("./utilities/utilities");
 
 const worker = createWorker({
-  logger: m => console.log(m)
+  //logger: m => console.log(m)
 });
 
 async function parse_image(imgPath) {
