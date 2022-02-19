@@ -5,7 +5,6 @@ class SpaceOCRProcessor {
   async parse_image(imgPath) {
     if (!imgPath)
       throw new Error("Falsy path image to OCR - API parse image function");
-
     let res;
     let licensePlate;
 
@@ -18,7 +17,7 @@ class SpaceOCRProcessor {
     }
 
     if (res) {
-      if (res.hasOwnProperty("ParsedResults")) {
+      if (res.hasOwnProperty("ParsedResults") && res.ParsedResults.length > 0) {
         if (res.ParsedResults[0].hasOwnProperty("ParsedText")) {
           licensePlate = res.ParsedResults[0].ParsedText;
           return cleanAPIRes(licensePlate);
@@ -31,4 +30,4 @@ class SpaceOCRProcessor {
   }
 }
 
-module.exports = {SpaceOCRProcessor};
+module.exports = { SpaceOCRProcessor };

@@ -1,4 +1,4 @@
-const parse_image = require("../../../api/space_OCR_API");
+const { SpaceOCRProcessor } = require("../../../api/space_OCR_API");
 const { createImagePath } = require("../../../api/utilities/utilities");
 
 describe("OCR.space-API", () => {
@@ -6,6 +6,7 @@ describe("OCR.space-API", () => {
     let imgLicensePlatePath = "";
     let licensePlateNumberExpect = "";
     let licensePlateNumberRecognaized = "";
+    const spaceOCRProcessor = new SpaceOCRProcessor();
 
     beforeEach(() => {});
 
@@ -17,7 +18,7 @@ describe("OCR.space-API", () => {
 
     const exec = async () => {
       try {
-        return await parse_image(imgLicensePlatePath);
+        return await spaceOCRProcessor.parse_image(imgLicensePlatePath);
       } catch (ex) {
         //console.error(ex.message);
         return ex.message;

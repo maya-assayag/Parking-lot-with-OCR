@@ -79,7 +79,7 @@ describe("Parking lot .E2E", () => {
     await exec();
 
     expect(parkingLot.getSpotsInstance().has(vehicle.getId())).toEqual(true);
-  });
+  }, 50000);
 
   it("should park a medium vehicle in the parking lot", async () => {
     size = "Medium";
@@ -88,7 +88,7 @@ describe("Parking lot .E2E", () => {
     await exec();
 
     expect(parkingLot.getSpotsInstance().has(vehicle.getId())).toEqual(true);
-  });
+  }, 50000);
 
   it("should park a large vehicle in the parking lot", async () => {
     size = "Large";
@@ -97,5 +97,5 @@ describe("Parking lot .E2E", () => {
     await exec();
 
     expect(parkingLot.getSpotsInstance().has(vehicle.getId())).toEqual(true);
-  });
+  }, 50000);
 });

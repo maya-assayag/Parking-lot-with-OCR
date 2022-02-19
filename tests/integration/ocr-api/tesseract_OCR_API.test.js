@@ -1,4 +1,4 @@
-const parse_image = require("../../../api/tesseract_OCR_API");
+const { TesseractOCRProcessor } = require("../../../api/tesseract_OCR_API");
 const { createImagePath } = require("../../../api/utilities/utilities");
 
 describe("OCR.tesseract-API", () => {
@@ -7,6 +7,7 @@ describe("OCR.tesseract-API", () => {
     let licensePlateNumberExpect = "";
     let licensePlateNumberRecognaized = "";
 
+    const tesseractOCRProcessor = new TesseractOCRProcessor();
     beforeEach(() => {});
 
     afterEach(() => {
@@ -17,7 +18,7 @@ describe("OCR.tesseract-API", () => {
 
     const exec = async () => {
       try {
-        return await parse_image(imgLicensePlatePath);
+        return await tesseractOCRProcessor.parse_image(imgLicensePlatePath);
       } catch (ex) {
         //console.error(ex.message);
         return ex.message;

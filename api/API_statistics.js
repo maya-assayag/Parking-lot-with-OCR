@@ -86,8 +86,8 @@ class APIStatistics {
     while (i <= imgCount) {
       path = createImagePath(i);
 
-      await spaceExec();
       await tesseractExec();
+      await spaceExec();
 
       ++i;
     }

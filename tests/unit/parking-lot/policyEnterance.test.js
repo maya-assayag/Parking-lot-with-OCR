@@ -2,7 +2,7 @@ const policyEnterance = require("../../../parkingLot/policyEntrance");
 const { createImagePath } = require("../../../api/utilities/utilities");
 
 describe("Parking lot. Policy enterance", () => {
-  let pathToImg = "";
+  let licensePlateNumber = "";
 
   describe("can_enter_parking_lot", () => {
     beforeEach(() => {});
@@ -11,30 +11,36 @@ describe("Parking lot. Policy enterance", () => {
 
     const exec = async () => {
       try {
-        return await policyEnterance(pathToImg);
+        return await policyEnterance(licensePlateNumber);
       } catch (ex) {
         return ex.message;
       }
     };
 
     it("should return object with false and error if license plate is null", async () => {
-      pathToImg = createImagePath(1);
-
       res = await exec();
 
       expect(res).toEqual({ accept: false, reason: "error" });
     });
 
     it("should return object with true and VIP string if the sum of numbers in license plate divided in 9", async () => {
-      pathToImg = createImagePath(2);
+      licensePlateNumber = "34569";
 
       res = await exec();
 
       expect(res).toEqual({ accept: true, reason: "VIP" });
     });
 
-    it("should return object with false and p_l string if the license plate number ends with 7 or 25", async () => {
-      pathToImg = createImagePath(8);
+    it("should return object with false and p_l string if the license plate number ends with 25", async () => {
+      licensePlateNumber = "1525";
+
+      res = await exec();
+
+      expect(res).toEqual({ accept: false, reason: "pl" });
+    });
+
+    it("should return object with false and p_l string if the license plate number ends with 7", async () => {
+      licensePlateNumber = "1237";
 
       res = await exec();
 
@@ -42,7 +48,7 @@ describe("Parking lot. Policy enterance", () => {
     });
 
     it("should return object with false and m_le string if in the license plate number has sequens of identical digit", async () => {
-      pathToImg = createImagePath(12);
+      licensePlateNumber = "1234456";
 
       res = await exec();
 
@@ -50,7 +56,7 @@ describe("Parking lot. Policy enterance", () => {
     });
 
     it("should return object with true and regular string if the license plate has no spacial properties", async () => {
-      pathToImg = createImagePath(9);
+      licensePlateNumber = "1234";
 
       res = await exec();
 
