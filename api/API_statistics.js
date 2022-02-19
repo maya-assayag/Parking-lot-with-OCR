@@ -1,5 +1,5 @@
-const space_OCR = require("./space_OCR_API");
-const tesseract_OCR = require("./tesseract_OCR_API");
+const { SpaceOCRProcessor } = require("./space_OCR_API");
+const { TesseractOCRProcessor } = require("./tesseract_OCR_API");
 const { createImagePath } = require("./utilities/utilities");
 
 let spaceCounter = 0;
@@ -35,8 +35,9 @@ imgCounter = function() {
 };
 
 spaceExec = async function() {
+  const space_OCR = new SpaceOCRProcessor();
   try {
-    licensePlateSpaceRes = await space_OCR(path);
+    licensePlateSpaceRes = await space_OCR.parse_image(path);
   } catch (error) {
     console.error(error.message);
   }
@@ -50,8 +51,9 @@ spaceExec = async function() {
 };
 
 tesseractExec = async function() {
+  const tesseract_OCR = new TesseractOCRProcessor();
   try {
-    licensePlateTrsseractRes = await tesseract_OCR(path);
+    licensePlateTrsseractRes = await tesseract_OCR.parse_image(path);
   } catch (error) {
     console.error(error.message);
   }
@@ -75,8 +77,8 @@ class APIStatistics {
   bestPerformance = async function() {
     await this.statistics();
     return recognize.space.success.length > recognize.tesseract.success.length
-      ? "Space"
-      : "Tesseract";
+      ? new SpaceOCRProcessor()
+      : new TesseractOCRProcessor();
   };
 
   statistics = async function() {
@@ -110,9 +112,5 @@ class APIStatistics {
             ${recognize.tesseract.failed}`);
   };
 }
-// let bla = new APIStatistics();
 
-// bla.statistics().then(() => {
-//   bla.print();
-// });
 module.exports = { APIStatistics };

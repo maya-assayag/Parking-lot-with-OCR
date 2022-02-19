@@ -2,10 +2,18 @@ const { Status } = require("././status/status");
 const { LargeSpot } = require("././spot/largeSpot");
 const { MediumSpot } = require("././spot/mediumSpot");
 const { SmallSpot } = require("././spot/smallSpot");
+const { APIStatistics } = require("../api/API_statistics");
 const hasPermissions = require("./policyEntrance");
 
 let _parkingLot;
 let _parkingStatus;
+
+async function convertLicensePlateImgToNumber(pathToVehicleLicensePlateImg) {
+  const statistics = new APIStatistics();
+  const ocrProcessor = await statistics.bestPerformance();
+
+  return await ocrProcessor.parse_image(pathToVehicleLicensePlateImg);
+}
 
 class ParkingLot {
   constructor(regularSpots, handicapSpots) {
@@ -29,9 +37,11 @@ class ParkingLot {
     if (_parkingLot.get(vehicle.getId()))
       throw new Error("This car is already park in the parking lot");
 
-    const permissions = await hasPermissions(
+    const licensePlateNumber = await convertLicensePlateImgToNumber(
       vehicle.pathToVehicleLicensePlateImg
     );
+
+    const permissions = hasPermissions(licensePlateNumber);
 
     if (!permissions.accept) {
       throw new Error("This vehicle has no parking lot entrance permissions");
@@ -80,9 +90,9 @@ class ParkingLot {
 
   description = function() {
     _parkingStatus.description();
-    _parkingLot.forEach((value, key) => {
-      console.log(key);
-    });
+    // _parkingLot.forEach((value, key) => {
+    //   console.log(key);
+    // });
   };
 }
 module.exports = { ParkingLot };

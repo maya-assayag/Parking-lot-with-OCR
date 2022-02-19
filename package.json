@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./parkingLot/policyEntrance.js",
-    "test": "jest --watchAll --verbose  --maxWorkers=1"
+    "start": "nodemon index.js",
+    "test": "jest --verbose  --maxWorkers=1"
   },
   "keywords": [],
   "author": "",

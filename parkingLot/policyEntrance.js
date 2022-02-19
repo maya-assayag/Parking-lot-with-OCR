@@ -1,9 +1,3 @@
-const parse_image = require("../api/space_OCR_API");
-//const tesseract_parse_image = require("../api/tesseract_OCR_API");
-const { APIStatistics } = require("../api/API_statistics");
-
-statistics = new APIStatistics();
-
 function hasNoPermissions(licensePlate) {
   return licensePlate === undefined || licensePlate === "" ? true : false;
 }
@@ -34,23 +28,14 @@ function has_VIP_permissions(licensePlate) {
   return sum % 9 == 0 ? true : false;
 }
 
-async function can_enter_parking_lot(pathToVehicleLicensePlateImg) {
-  // let ocr_res;
-  // let statisticsRes = await statistics.bestPerformance();
-
-  // statisticsRes === "Space"
-  //   ? (ocr_res = await space_parse_image(pathToVehicleLicensePlateImg))
-  //   : (ocr_res = await tesseract_parse_image(pathToVehicleLicensePlateImg));
-
-  const ocr_res = await parse_image(pathToVehicleLicensePlateImg);
-
-  return hasNoPermissions(ocr_res)
+function can_enter_parking_lot(licensePlateNumber) {
+  return hasNoPermissions(licensePlateNumber)
     ? { accept: false, reason: "error" }
-    : has_m_le_permissions(ocr_res)
+    : has_m_le_permissions(licensePlateNumber)
     ? { accept: false, reason: "m_le" }
-    : has_pl_permissions(ocr_res)
+    : has_pl_permissions(licensePlateNumber)
     ? { accept: false, reason: "pl" }
-    : has_VIP_permissions(ocr_res)
+    : has_VIP_permissions(licensePlateNumber)
     ? { accept: true, reason: "VIP" }
     : { accept: true, reason: "regular" };
 }
